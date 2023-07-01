@@ -5,7 +5,6 @@ import { openGraphAndMeta } from '@/lib/seo'
 import { useEffect, useState } from 'react'
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 import IntroTextAnimation from '@/components/IntroTextAnimation/IntroTextAnimation'
-import { Quote } from './api/v1/quotes'
 import { InferGetStaticPropsType } from 'next'
 import { useModal } from '@/hooks/useModal'
 import { toast } from 'react-toastify'
@@ -14,6 +13,7 @@ import { useTranslatedQuotes } from '@/hooks/useTranslatedQuotes'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectSettings, setSettings } from '@/lib/redux/store'
 import LanguageSelect from '@/components/LanguageSelect/LanguageSelect'
+import { baseQuotes } from '@/lib/quotes'
 
 export default function Home(
   props: InferGetStaticPropsType<typeof getStaticProps>
@@ -86,12 +86,18 @@ export default function Home(
 const modalStyles = {}
 
 export async function getStaticProps() {
-  const res = await fetch(`${baseUrl}/api/v1/quotes`) // simulate headless CMS
-  // console.log(res)
-  const quotes = (await res.json()) as Quote[]
+  const enconder = new TextEncoder()
+  const quotesWithBase64 = baseQuotes.map((q) => {
+    const data = enconder.encode(q.quote)
+    const quoteb64 = Buffer.from(data).toString('base64')
+    return {
+      ...q,
+      quoteb64, // imgix prefers text as base64
+    }
+  })
   return {
     props: {
-      quotes,
+      quotes: quotesWithBase64,
     },
   }
 }

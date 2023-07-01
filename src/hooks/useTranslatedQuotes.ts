@@ -1,6 +1,6 @@
 // get selected language from redux store
 
-import { Quote } from '@/pages/api/v1/quotes'
+import { Quote } from '@/lib/quotes'
 import { baseUrl } from '../../sitemap'
 import { useSelector } from 'react-redux'
 import { selectLanguage } from '@/lib/redux/store'

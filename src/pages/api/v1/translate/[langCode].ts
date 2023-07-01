@@ -18,7 +18,7 @@ export default async function handler(req: NextRequest) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        q: baseQuotes.map((q) => q.quote),
+        q: baseQuotes.map((q) => q.quote), // provide only the english quote to google translate
         source: 'en',
         target: langCode,
         format: 'text',
@@ -27,19 +27,17 @@ export default async function handler(req: NextRequest) {
   )
   const translations = (await res.json()) as GoogleTranslateResponse
 
-  // map responses back to Ids, and append base64 for imgix
+  // map responses back to Ids
+  // append translated base64 for imgix
+  // use TextEncoder to encode non-english chars (btoa isn't reliable for non-english chars)
+  const enconder = new TextEncoder()
   const translationsWithIds = translations.data.translations.map((t, idx) => {
-    const quote = t.translatedText
-    // btoa() isn't reliable for non-english chars; so use TextEncoder first
-    // const quoteWithLineBreak = quote.replace('//', '<br>')
-    const enconder = new TextEncoder()
-    const encodedQuote = enconder.encode(quote)
-    const encodedU8Arr = Array.from(encodedQuote)
-    const quoteb64 = btoa(String.fromCharCode.apply(null, encodedU8Arr))
+    const data = enconder.encode(t.translatedText)
+    const quoteb64 = Buffer.from(data).toString('base64')
     return {
       id: idx,
       quote: baseQuotes[idx].quote, //english quote
-      quoteb64, // translated and base64 for imgix
+      quoteb64, // translated as base64 for imgix
       title: baseQuotes[idx].title,
     }
   })
