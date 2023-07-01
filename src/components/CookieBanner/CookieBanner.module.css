@@ -1,0 +1,20 @@
+.container {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: grid;
+  place-items: center;
+  padding: 2em;
+  z-index: 10;
+  background-color: white;
+  box-shadow: 0rem 0rem 0.5rem rgba(0, 0, 0, 0.2);
+}
+
+.container button {
+  border-radius: 8px;
+  padding: 8px 16px;
+}
+
+.container button:hover {
+  background-color: lightgray;
+}

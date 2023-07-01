@@ -1,0 +1,17 @@
+.wordStart {
+  opacity: 0;
+  transform: translateY(5%);
+  padding-right: 6px;
+}
+
+.wordEnd {
+  display: inline-block;
+  transition: opacity 0.4s, transform 0.5s, color 2s 0.4s;
+  transform: translateY(0%);
+  color: #22b6e7;
+  opacity: 1;
+}
+
+.quote {
+  font-size: xx-large;
+}

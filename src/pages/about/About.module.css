@@ -1,0 +1,116 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.container > :not(.fullWidth) {
+  padding: 2rem 2rem;
+}
+
+.heading {
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.back {
+  display: flex;
+  align-items: center;
+}
+
+.aboutMeCon {
+  display: flex;
+  justify-content: center;
+  /* justify-content: space-around; */
+  gap: 4rem;
+}
+.aboutMeCon img {
+  border-radius: 100%;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.carousel {
+  display: flex;
+  justify-content: flex-start;
+  gap: 1rem;
+  max-width: 100%;
+  overflow-x: scroll;
+  padding-left: 1rem;
+}
+@media screen and (min-width: 768px) {
+  .carousel {
+    justify-content: space-evenly;
+  }
+}
+.carousel:first-child {
+  /* padding-left: 2rem; */
+}
+.carousel:last-child {
+  padding-right: 1rem;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border: solid 1px lightgray;
+  padding-top: 1rem;
+  /* box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); */
+  border-radius: 1rem;
+}
+
+.card img {
+  object-fit: cover;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+}
+.card h4 {
+  margin: 0;
+  max-width: 150px;
+  text-align: center;
+}
+
+.aboutCards {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 200px;
+}
+
+.mapCon {
+  min-width: 100%;
+  min-height: 500px;
+}
+.mapboxFallback {
+  display: grid;
+  place-content: center;
+  background-color: lightgray;
+  animation: pulse 2s infinite;
+  min-width: 100%;
+  min-height: 500px;
+}
+.mapboxFallback h1 {
+  text-align: center;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.caption {
+  text-align: center;
+}

@@ -2,7 +2,7 @@
 
 :root {
   --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
+  --background-start-rgb: 255, 255, 255;
   --background-end-rgb: 255, 255, 255;
 }
 
@@ -22,4 +22,25 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+}
+
+details {
+  margin: 1rem;
+}
+
+button {
+  border-radius: 8px;
+  border: 0px solid lightgray;
+  padding: 8px 16px;
+  background-color: transparent;
+}
+
+button:hover,
+a:hover {
+  background-color: lightgray;
+}
+
+a {
+  padding: 1rem;
+  border-radius: 0.5rem;
 }

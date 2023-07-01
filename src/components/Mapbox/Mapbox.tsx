@@ -10,14 +10,16 @@ mapboxgl.accessToken = assertValue(
   'Missing env var: NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN'
 )
 
+const myCoords: mapboxgl.LngLatLike = [-82.4009837, 34.8448609]
+
 export const Mapbox = () => {
   const mapContainer = useRef<HTMLDivElement | null>(null)
   const map = useRef<Map | null>(null)
   const [center, setCenter] = useState<MapboxOptions['center'] | null>(null)
-  const [zoom, setZoom] = useState<MapboxOptions['zoom']>(0)
+  const [zoom] = useState<MapboxOptions['zoom']>(0)
 
   useEffect(() => {
-    fetch(`${baseUrl}/api/getUserCoords`)
+    fetch(`${baseUrl}/api/v1/getUserCoords`)
       .then((res) => res.json())
       .then((coords) => setCenter([coords.lng, coords.lat]))
   }, [])
@@ -31,15 +33,34 @@ export const Mapbox = () => {
       style: 'mapbox://styles/mapbox/streets-v12',
       center,
       zoom,
+      cooperativeGestures: true,
     })
   }, [center, zoom, map])
 
   useEffect(() => {
     // update zoom/center after user coords fetch
     if (!map.current || !center) return
-    new mapboxgl.Marker().setLngLat(center).addTo(map.current)
-    map.current.setZoom(10)
-    map.current.setCenter(center)
+    const popupData = [
+      {
+        html: `<div>Me (Greenville, SC)</div>`,
+        coords: myCoords,
+      },
+      {
+        html: `<div>You! (via IP)</div>`,
+        coords: center,
+      },
+    ]
+    popupData.forEach((p) => {
+      // add popups to map
+      map.current &&
+        new mapboxgl.Popup({
+          closeButton: false,
+        })
+          .setLngLat(p.coords)
+          .setHTML(p.html)
+          .addTo(map.current)
+    })
+    map.current.fitBounds([myCoords, center])
   }, [map, center])
 
   useEffect(() => {

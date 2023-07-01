@@ -1,0 +1,34 @@
+.con {
+  display: flex;
+  gap: 4px;
+  place-items: center;
+}
+
+.select {
+  border: none;
+}
+
+.languageSelectorInput_trigger {
+  display: flex;
+  align-items: center;
+  min-width: auto;
+}
+
+.languageSelectorInput_dropdown {
+  transition: 0.2s;
+  line-height: 48px;
+  font-size: 1rem;
+  font-weight: 600;
+  appearance: none;
+  border: 0;
+  cursor: pointer;
+  padding-left: 10px;
+}
+
+.languageSelectorInput_dropdown:focus {
+  outline: 0;
+}
+
+.languageSelectorInput_dropdown select:not(:-internal-list-box) {
+  overflow: visible !important;
+}

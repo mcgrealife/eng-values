@@ -1,0 +1,11 @@
+.container {
+  display: grid;
+  place-content: center;
+  place-items: center;
+  gap: 2rem;
+  margin: 2rem;
+}
+
+.container button {
+  margin: 1rem 0rem;
+}

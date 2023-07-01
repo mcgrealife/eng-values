@@ -1,0 +1,59 @@
+.container {
+  width: 100%;
+  display: grid;
+  grid-template: 1fr / 1fr;
+  place-items: center;
+  align-items: center;
+  border-bottom: 1px solid #e7e9eb;
+  /* box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); */
+  background-color: white;
+  padding: 0.5rem;
+}
+
+.title {
+  grid-area: 1 / 1 / 2 / 2;
+  /* font-weight: 600; */
+}
+
+.right {
+  display: flex;
+  gap: 1rem;
+  grid-area: 1 / 1 / 2 / 2;
+  justify-self: end;
+  margin: 0.5rem;
+}
+
+@media screen and (max-width: 768px) {
+  .title {
+    justify-self: start;
+    padding: 1rem;
+  }
+}
+
+.settings {
+  grid-area: 1 / 1 / 2 / 2;
+  justify-self: end;
+  margin: 0.5rem;
+}
+
+.select {
+  grid-area: 1 / 1 / 2 / 2;
+  justify-self: start;
+  /* place-self: center; */
+  /* place-items: center; */
+  width: fit-content;
+  display: flex;
+  gap: 4px;
+}
+
+.NavDropdown_content {
+  position: fixed;
+  z-index: 1;
+  top: 60px;
+  right: 16px;
+  width: 280px;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  border: 1px solid #e6edef;
+  background-color: #fafcfc;
+}
