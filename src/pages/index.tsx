@@ -55,22 +55,29 @@ export default function Home(
         </div>
       )}
       <LanguageSelect />
-      <div className={styles.primaryQuote}>
-        <h4>
-          {selectedQuote.id}: {selectedQuote.title}
-        </h4>
-        <h2>{selectedQuote.quote}</h2>
-        <div className={styles.primaryImage}>
-          <Image
-            loader={({ width }) => {
-              return `https://gmb.imgix.net/~text?txt64=${selectedQuote.quoteb64}&txt-color=4B5E75&txt-size=34&w=${width}&h=auto&q=75&markscale=30&markalign=top,left&mark64=aHR0cHM6Ly9hc3NldHMuaW1naXgubmV0L3ByZXNza2l0L2ltZ2l4LXByZXNza2l0LnBkZj9mbT1wbmcmcGFnZT00`
-            }}
-            alt={`quote-as-image: ${selectedQuote.quote}`}
-            fill
-            src={selectedQuote.id.toString()}
-            className={styles.nextImg}
-          />
+      <div className={styles.quoteScroll}>
+        <div className={styles.scrollable}>
+          {quotes.map((q) => (
+            <div key={q.id} className={styles.primaryQuote}>
+              <h4>
+                {q.id}: {q.title}
+              </h4>
+              <h2>{q.quote}</h2>
+              <div className={styles.primaryImage}>
+                <Image
+                  loader={({ width }) => {
+                    return `https://gmb.imgix.net/~text?txt64=${q.quoteb64}&txt-color=black&txt-size=48&w=${width}&ar=1:1&q=75&txt-font=BrushScriptMT&txt-pad=40`
+                  }}
+                  alt={`quote-as-image: ${q.quote}`}
+                  fill
+                  src={q.id.toString()}
+                  className={styles.nextImg}
+                />
+              </div>
+            </div>
+          ))}
         </div>
+        <div className={styles.quoteScrollOverlayGradient} />
       </div>
     </main>
   )
@@ -88,3 +95,5 @@ export async function getStaticProps() {
     },
   }
 }
+
+// https://gmb.imgix.net/b/3.jpg?w=500&h=500&txt64=T3VyIGdvYWwgaXMgdG8gYnVpbGQgYSB3b3JsZCBjbGFzcyBwcm9kdWN0IGFuZCBjb21wYW55LiBXZSdyZSBhIGhpZ2ggcGVyZm9ybWFuY2UgdGVhbSBvZiB0b3AgZW5naW5lZXJpbmcgdGFsZW50LCB3aG8gc3RyaXZlIHRvIGJldHRlciBvdXJzZWx2ZXMgYW5kIGVhY2ggb3RoZXIu&txtfont=Arial&txtsize=40&txtalign=center,middle&txtclr=ffffff&txtfit=fill&txtwidth=0.8&txt=base64&txtclip=ellipse

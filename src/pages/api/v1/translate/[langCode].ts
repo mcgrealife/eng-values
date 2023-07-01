@@ -38,8 +38,8 @@ export default async function handler(req: NextRequest) {
     const quoteb64 = btoa(String.fromCharCode.apply(null, encodedU8Arr))
     return {
       id: idx,
-      quote,
-      quoteb64,
+      quote: baseQuotes[idx].quote, //english quote
+      quoteb64, // translated and base64 for imgix
       title: baseQuotes[idx].title,
     }
   })
