@@ -1,8 +1,8 @@
 import { MetadataRoute } from 'next'
 export const baseUrl =
-  process.env.NODE_ENV == 'production'
-    ? 'https://gmb.vercel.app'
-    : 'http://localhost:3000'
+  process.env.NODE_ENV == 'development'
+    ? 'http://localhost:3000'
+    : 'https://gmb-eng-values.vercel.app'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
