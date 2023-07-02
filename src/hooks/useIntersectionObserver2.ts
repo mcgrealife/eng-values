@@ -10,7 +10,6 @@ export const useIntersectionObserver2 = ({
   onIntersect?: (inView: boolean) => void
   options?: IntersectionObserverInit & {
     once?: boolean
-    onIntersect?: (inView: boolean) => void
   }
 }) => {
   const observerRef = useRef<IntersectionObserver | null>(null)
@@ -26,8 +25,11 @@ export const useIntersectionObserver2 = ({
           setInView(false)
           onIntersect && onIntersect(false)
         }
+        if (options?.once && entry.isIntersecting && observerRef.current) {
+          observerRef.current.disconnect()
+        }
       })
-    })
+    }, options)
 
     observerRef.current = observer
 
