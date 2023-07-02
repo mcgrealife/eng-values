@@ -20,6 +20,9 @@
   font-size: 1rem;
   font-weight: 600;
   appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: none;
   border: 0;
   cursor: pointer;
   padding-left: 10px;
