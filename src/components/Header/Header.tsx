@@ -5,11 +5,13 @@ import { useModal } from '@/hooks/useModal'
 import { useSelector } from 'react-redux'
 import { selectLanguage } from '@/lib/redux/store'
 import useMediaQuery from '@/hooks/useMediaQuery'
+import { useRouter } from 'next/router'
 
 export default function Header() {
   const { Modal, actions } = useModal({})
   const isMobile = useMediaQuery('(max-width: 768px)')
   const { showInHeader } = useSelector(selectLanguage)
+  const router = useRouter()
 
   return (
     <header className={styles.container}>
@@ -21,7 +23,7 @@ export default function Header() {
         </Link>
       </div>
       <div className={styles.languageSelect}>
-        {showInHeader && <LanguageSelect />}
+        {showInHeader && router.pathname == '/' && <LanguageSelect />}
       </div>
       <div className={styles.right}>
         <button onClick={() => actions.openModal()}>menu</button>
