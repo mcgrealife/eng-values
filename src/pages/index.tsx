@@ -1,35 +1,49 @@
 import Head from 'next/head'
 import styles from '@/styles/Home.module.css'
-import { baseUrl } from '../../sitemap'
 import { openGraphAndMeta } from '@/lib/seo'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 import IntroTextAnimation from '@/components/IntroTextAnimation/IntroTextAnimation'
 import { InferGetStaticPropsType } from 'next'
 import { useModal } from '@/hooks/useModal'
-import { toast } from 'react-toastify'
-import Image from 'next/image'
 import { useTranslatedQuotes } from '@/hooks/useTranslatedQuotes'
 import { useSelector, useDispatch } from 'react-redux'
-import { selectSettings, setSettings } from '@/lib/redux/store'
+import { selectSettings, setLanguage, setSettings } from '@/lib/redux/store'
 import LanguageSelect from '@/components/LanguageSelect/LanguageSelect'
 import { baseQuotes } from '@/lib/quotes'
+import useMediaQuery from '@/hooks/useMediaQuery'
+import QuoteCard from '@/components/QuoteCard/QuoteCard'
 
 export default function Home(
   props: InferGetStaticPropsType<typeof getStaticProps>
 ) {
   const quotes = useTranslatedQuotes(props.quotes)
-  // console.log(quotes)
-  const { inView, observeEl } = useIntersectionObserver()
-  const selectedQuote = quotes[0]
   const dispatch = useDispatch()
+  const isMobile = useMediaQuery('(max-width: 768px)')
   const { seenIntroTextAnimation } = useSelector(selectSettings)
-  const { Modal, actions } = useModal()
+  const { Modal, actions } = useModal({ open: !seenIntroTextAnimation })
+  const scrollable = useRef<HTMLDivElement>(null)
+
+  const languageSelectorRef = useRef<HTMLDivElement>(null)
+  const scrollToTopButtonRef = useRef<HTMLDivElement>(null)
+  const { inView, observeEl } = useIntersectionObserver()
 
   useEffect(() => {
-    // const ls = localStorage.getItem('seenIntroTextAnimation') === 'true'
     if (!seenIntroTextAnimation) actions.openModal()
   }, [seenIntroTextAnimation, actions])
+  // observeButton(scrollToTopButtonRef.current)
+
+  useEffect(() => {
+    observeEl(languageSelectorRef.current)
+  }, [observeEl])
+
+  useEffect(() => {
+    dispatch(
+      setLanguage({
+        showInHeader: !inView,
+      })
+    )
+  }, [inView, dispatch])
 
   return (
     <main className={styles.main}>
@@ -39,6 +53,16 @@ export default function Home(
           <Modal
             overlayStyle={{
               backgroundColor: 'rgba(0,0,0,0.5)',
+              width: '100%',
+              height: '100%',
+            }}
+            contentStyle={{
+              // display: 'grid',
+              // placeContent: 'center',
+              // width: '100%',
+              // maxWidth: isMobile ? '100%' : '80%',
+              height: '100%',
+              padding: isMobile ? '2rem' : '6rem',
             }}>
             <IntroTextAnimation
               onEndAnimation={() => {
@@ -48,7 +72,6 @@ export default function Home(
                   })
                 )
                 actions.closeModal()
-                toast('dispatch seenIntroTextAnimation: true')
               }}
             />
           </Modal>
@@ -75,8 +98,7 @@ export default function Home(
   )
 }
 
-const modalStyles = {}
-
+// Static Generation
 export async function getStaticProps() {
   const enconder = new TextEncoder()
   const quotesWithBase64 = baseQuotes.map((q) => {
@@ -93,5 +115,3 @@ export async function getStaticProps() {
     },
   }
 }
-
-// https://gmb.imgix.net/b/3.jpg?w=500&h=500&txt64=T3VyIGdvYWwgaXMgdG8gYnVpbGQgYSB3b3JsZCBjbGFzcyBwcm9kdWN0IGFuZCBjb21wYW55LiBXZSdyZSBhIGhpZ2ggcGVyZm9ybWFuY2UgdGVhbSBvZiB0b3AgZW5naW5lZXJpbmcgdGFsZW50LCB3aG8gc3RyaXZlIHRvIGJldHRlciBvdXJzZWx2ZXMgYW5kIGVhY2ggb3RoZXIu&txtfont=Arial&txtsize=40&txtalign=center,middle&txtclr=ffffff&txtfit=fill&txtwidth=0.8&txt=base64&txtclip=ellipse

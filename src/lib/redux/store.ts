@@ -4,6 +4,7 @@ import { configureStore, PayloadAction, createSlice } from '@reduxjs/toolkit'
 const initialStateLanguage = {
   langCode: 'en',
   name: 'English',
+  showInHeader: false,
 }
 export const languageSlice = createSlice({
   name: 'language',

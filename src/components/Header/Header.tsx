@@ -2,14 +2,28 @@ import styles from './Header.module.css'
 import Link from 'next/link'
 import LanguageSelect from '../LanguageSelect/LanguageSelect'
 import { useModal } from '@/hooks/useModal'
+import { useSelector } from 'react-redux'
+import { selectLanguage } from '@/lib/redux/store'
+import useMediaQuery from '@/hooks/useMediaQuery'
 
 export default function Header() {
-  const { Modal, actions } = useModal()
+  const { Modal, actions } = useModal({})
+  const isMobile = useMediaQuery('(max-width: 768px)')
+  const { showInHeader } = useSelector(selectLanguage)
+
   return (
     <header className={styles.container}>
-      <div className={styles.title}>GetMyBoat Engineering values</div>
+      <div className={styles.title}>
+        <Link href='/'>
+          {!isMobile || (isMobile && !showInHeader)
+            ? `GetMyBoat Engineering values`
+            : ''}
+        </Link>
+      </div>
+      <div className={styles.languageSelect}>
+        {showInHeader && <LanguageSelect />}
+      </div>
       <div className={styles.right}>
-        {/* <LanguageSelect /> */}
         <button onClick={() => actions.openModal()}>menu</button>
       </div>
       <Modal
