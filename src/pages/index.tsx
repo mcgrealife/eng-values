@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import styles from '@/styles/Home.module.css'
 import { openGraphAndMeta } from '@/lib/seo'
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import { useIntersectionObserver2 } from '@/hooks/useIntersectionObserver2'
 import IntroTextAnimation from '@/components/IntroTextAnimation/IntroTextAnimation'
 import { InferGetStaticPropsType } from 'next'
@@ -17,7 +17,10 @@ import ScrollToTopButton from '@/components/buttons/ScrollToTopButton'
 export default function Home(
   props: InferGetStaticPropsType<typeof getStaticProps>
 ) {
+  // SSG quotes, optionally translated via Google Translate API
   const quotes = useTranslatedQuotes(props.quotes)
+
+  // intro modal
   const dispatch = useDispatch()
   const { seenIntroTextAnimation } = useSelector(selectSettings)
   const { Modal, actions } = useModal({
@@ -30,7 +33,7 @@ export default function Home(
       ),
   })
 
-  // intersection observers 2
+  // language picker, showInHeader on scroll
   const languageSelector = useRef<HTMLDivElement>(null)
   useIntersectionObserver2({
     ref: languageSelector,

@@ -18,7 +18,7 @@ export default function LanguageSelect() {
           src={`/flag-icons/${getFlagCode(language.langCode)}.png`}
           width={23}
           height={17}
-          alt='country-flag'
+          alt='country-flag-ISO3166'
         />
         <select
           id='quote-languages'
@@ -28,8 +28,8 @@ export default function LanguageSelect() {
               (lc) => lc.langCode == e.target.value
             )
             if (!langObj) return
-            dispatch(setLanguage(langObj))
-            reduxToast(`Dispatch => setLanguageCode( ${langObj.langCode} )`)
+            dispatch(setLanguage(langObj)) // google translate langCodes are ISO639 (diff than flag codes)
+            reduxToast(`Dispatch => setLangCode('${langObj.langCode}')`)
           }}
           style={{
             width: `${language.name.length + 1}ch`,

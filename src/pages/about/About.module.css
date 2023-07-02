@@ -86,6 +86,8 @@
 .mapCon {
   min-width: 100%;
   min-height: 500px;
+  display: grid;
+  place-items: center;
 }
 .mapboxFallback {
   display: grid;

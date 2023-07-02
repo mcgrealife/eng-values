@@ -1,7 +1,6 @@
-import { cssTransition, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 import styles from './IntroTextAnimation.module.css'
-import { ReactNode, useEffect, useState } from 'react'
-import { Toast, ToastProps } from 'react-toastify/dist/types'
+import { useEffect, useState } from 'react'
 import { reduxToast } from '../Toast/ReduxToast'
 
 export default function IntroTextAnimation({

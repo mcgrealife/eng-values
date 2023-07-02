@@ -12,7 +12,7 @@ export const useTranslatedQuotes = (quotes: Quote[]) => {
 
   useEffect(() => {
     if (langCode == 'en') return
-    fetch(`${baseUrl}/api/v1/translate/${langCode}`)
+    fetch(`${baseUrl}/api/v1/translate/${langCode}`) // google translate requires ISO639
       .then((res) => res.json())
       .then((res) => {
         setData(res)
