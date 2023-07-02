@@ -34,11 +34,19 @@
   justify-self: start;
   margin-left: 2rem;
 }
+.title a:hover {
+  padding: 1rem;
+}
 
 @media screen and (max-width: 768px) {
   .title {
     justify-self: start;
     padding: 1rem;
+  }
+  .title a:hover {
+    padding: initial;
+    background-color: initial;
+    color: initial;
   }
   .languageSelect {
     grid-area: 1 / 1 / 2 / 2;
