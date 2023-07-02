@@ -11,7 +11,7 @@ const Mapbox = dynamic(() => import('@/components/Mapbox/Mapbox'), {
 })
 
 export default function About() {
-  const { hasBeenInView, observeEl } = useIntersectionObserver() // for mapbox lazy import
+  const { inView, observeEl } = useIntersectionObserver({ once: true }) // for mapbox lazy import
   const mapEl = useRef<HTMLDivElement>(null)
   useEffect(() => {
     // lazy import Mapbox; when scrolled into view
@@ -68,7 +68,7 @@ export default function About() {
         ))}
       </div>
       <div ref={mapEl} className={`${styles.mapCon} ${styles.fullWidth}`}>
-        <Suspense>{hasBeenInView && <Mapbox />}</Suspense>
+        <Suspense>{inView && <Mapbox />}</Suspense>
       </div>
       <div className={`${styles.caption} ${styles.fullWidth}`}>
         This Mapbox bundle was lazy imported when scrolled into view!
