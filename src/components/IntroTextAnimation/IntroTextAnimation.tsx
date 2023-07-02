@@ -1,5 +1,8 @@
+import { cssTransition, toast } from 'react-toastify'
 import styles from './IntroTextAnimation.module.css'
-import { useEffect, useState } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
+import { Toast, ToastProps } from 'react-toastify/dist/types'
+import { reduxToast } from '../Toast/ReduxToast'
 
 export default function IntroTextAnimation({
   onEndAnimation,
@@ -28,8 +31,15 @@ export default function IntroTextAnimation({
             animateWord && idx <= animateWord && styles.wordEnd
           }`}
           onTransitionEnd={(e) => {
-            if (e.propertyName == 'color' && idx == quoteWords.length - 1)
-              onEndAnimation()
+            if (e.propertyName == 'color' && idx == quoteWords.length - 4) {
+              reduxToast(`Dispatch(seenIntroTextAnimation)`)
+            }
+            if (e.propertyName == 'color' && idx == quoteWords.length - 1) {
+              setTimeout(() => {
+                onEndAnimation()
+                toast.dismiss()
+              }, 1500)
+            }
           }}>
           {word}{' '}
         </span>
