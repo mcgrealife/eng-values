@@ -54,31 +54,23 @@ export default function Home(
           </Modal>
         </div>
       )}
-      <LanguageSelect />
-      <div className={styles.quoteScroll}>
-        <div className={styles.scrollable}>
-          {quotes.map((q) => (
-            <div key={q.id} className={styles.primaryQuote}>
-              <h4>
-                {q.id}: {q.title}
-              </h4>
-              <h2>{q.quote}</h2>
-              <div className={styles.primaryImage}>
-                <Image
-                  loader={({ width }) => {
-                    return `https://gmb.imgix.net/~text?txt64=${q.quoteb64}&txt-color=black&txt-size=48&w=${width}&ar=1:1&q=75&txt-font=BrushScriptMT&txt-pad=40`
-                  }}
-                  alt={`quote-as-image: ${q.quote}`}
-                  fill
-                  src={q.id.toString()}
-                  className={styles.nextImg}
-                />
-              </div>
-            </div>
-          ))}
+      <div ref={scrollable} className={styles.scrollable}>
+        <div ref={languageSelectorRef} className={styles.langSelect}>
+          <LanguageSelect />
         </div>
-        <div className={styles.quoteScrollOverlayGradient} />
+        {quotes.map((q, idx) => (
+          <QuoteCard key={idx} quote={q} />
+        ))}
+        <button
+          onClick={() =>
+            scrollable.current?.scrollTo({ top: 0, behavior: 'smooth' })
+          }
+          className={`${styles.scrollTo} ${false ? styles.fade : ''}`}>
+          Back to top ↑
+        </button>
       </div>
+      <div className={`${styles.overlay} ${styles.top}`} />
+      <div className={`${styles.overlay} ${styles.bottom}`} />
     </main>
   )
 }
