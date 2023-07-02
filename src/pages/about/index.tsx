@@ -20,18 +20,21 @@ export default function About() {
     <div className={styles.container}>
       <section className={styles.fullWidth}>
         <div className={styles.heading}>
-          <div>
-            <div className={styles.flexCol}>
-              <h1>Technology used</h1>
-              <button>
-                <a
-                  href='https://github.com/mcgrealife/eng-values'
-                  target='_blank'>
-                  Source code
-                </a>
-              </button>
-            </div>
-            {/* <p>Mimicking GetMyBoat stack</p> */}
+          <div className={styles.flexCol}>
+            <h1>Technology used</h1>
+            <button>
+              <Image
+                src='/github.png'
+                alt='github-lgo'
+                width={20}
+                height={20}
+              />
+              <a
+                href='https://github.com/mcgrealife/eng-values'
+                target='_blank'>
+                Source code
+              </a>
+            </button>
           </div>
         </div>
         <ul className={`${styles.tech} ${styles.fullWidth}`}>
@@ -42,8 +45,8 @@ export default function About() {
                   <Image
                     src={t.logoUrl ?? ''}
                     alt={t.name + 'logo'}
-                    width={30}
-                    height={30}
+                    width={20}
+                    height={20}
                     className={styles.img}
                   />
                 )}
@@ -105,7 +108,7 @@ export default function About() {
         ].map((i, idx) => (
           <div key={idx} className={styles.card}>
             <h4>{i.title}</h4>
-            <Image src={i.src} alt={i.title} width={250} height={200} />
+            <Image src={i.src} alt={i.title} width={200} height={200} />
           </div>
         ))}
       </div>
@@ -123,7 +126,7 @@ const tech = [
   {
     name: '🪝 React hooks',
     takeaway: (
-      <div>{`Both the useIntersectionObserver() and useModal() hooks hide the complexity of managing refs, state, and useEffects. Both hooks allow overriding defaults via an options arg. The useModal hook is especially exciting because it mixes both hooks and HOC patterns – returning an actions object and a component that accepts children! This allows flexible cases where actions defined in the caller can be passed to arbitrary modal content (see IntroTextAnimation.tsx)!`}</div>
+      <div>{`All hooks: hide the complexity of managing refs, state, and useEffects; allow overriding defaults via an options arg. The useModal hook is especially exciting because it mixes both hooks and HOC patterns – returning an actions object and a component that accepts children! This allows flexible cases where actions defined in the caller can be passed to arbitrary modal content (see IntroTextAnimation.tsx)!`}</div>
     ),
     logoUrl: null,
   },
@@ -131,9 +134,9 @@ const tech = [
     name: '🪄 ImgIX',
     takeaway: (
       <div>
-        Typesetting API! ImgIX prefers quotes as base64. I learned that btoa()
-        errors on some non-english chars – so I used the more modern web
-        TextEncoder() API for translated quotes.
+        Typesetting API! ImgIX prefers quotes as base64, but btoa() errors on
+        some non-english chars – so I used TextEncoder() API for translated
+        quotes.
       </div>
     ),
     logoUrl: '',
@@ -163,7 +166,7 @@ const tech = [
   {
     name: '🌍 Mapbox',
     takeaway: (
-      <div>{`I am a heavy Google Maps API user. The concepts of providing Refs so mapbox can move the element is familiar. Some things are much easier (such as modifying popup positions in proximity to edge of viewport). Their WebGL 3D globe is delightful.`}</div>
+      <div>{`Mapbox makes some things are much easier than Google Maps! E.g. auto popup re-position when in proximity to edge of viewport. WebGL 3D globe is delightful.`}</div>
     ),
     logoUrl: '',
   },
@@ -177,28 +180,28 @@ const tech = [
   {
     name: '💅 CSS Modules',
     takeaway: (
-      <div>{`To my surprise, I do not miss Tailwind. Viewing the .module.css file and the component file side-by-side challenged my belief that css was "too far" from the HTML. I actually love how clean it keeps the markup. While Tailwind does offer escape hatches through custom config or arbitrary properties now – writing the CSS directly (with autocomplete and syntax highlighting) was immensely easier than inside a tailwind className!`}</div>
+      <div>{`To my surprise, I do not miss Tailwind! The markup is cleaner, and css allows flexible animations with ease. Still breezy!`}</div>
     ),
     logoUrl: '',
   },
   {
-    name: '📚 Storybook',
+    name: 'Storybook',
     takeaway: (
-      <div>{`Wow. I can't believe I've been writing jest tests manually. I only implemented a few components, but this is a paradigm shifting way of developing UI. I am hooked!`}</div>
+      <div>{`Wow. I can't believe I've been writing jest tests manually. This is a paradigm-shift in developing UI. I am hooked!`}</div>
     ),
-    logoUrl: '',
+    logoUrl: '/storybook.png',
   },
   {
     name: '🎛️ Dynamic API route caching',
     takeaway: (
-      <div>{`Instead of over-complicating this example app with RTK Query, I chose to use dynamic API routes that cached each language's Google Cloud Translate response for all users (since the translation will never change).`}</div>
+      <div>{`To avoid over-complicating with RTK Query, I chose dynamic API routes that cached each language's Google Cloud Translate response for all users.`}</div>
     ),
     logoUrl: '',
   },
   {
     name: '郒💬 Goolge Cloud Translate API',
     takeaway: (
-      <div>{`I opted for their REST API, instead of node client, to use the Edge runtime. I had to map frontend flag-icon values, which use ISO3166, to Google Translate language codes, which use ISO639.`}</div>
+      <div>{`I opted for their REST API, instead of node client, to use the Edge runtime. It required mapping ISO3166 flag-icon values to Google Translate ISO639 language codes.`}</div>
     ),
     logoUrl: '',
   },
