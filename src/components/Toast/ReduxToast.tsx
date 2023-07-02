@@ -1,28 +1,18 @@
+import styles from './ReduxToast.module.css'
 import { toast } from 'react-toastify'
 import Image from 'next/image'
 
 export const reduxToast = (message: string) =>
   toast(
     ({ closeToast }) => (
-      <div
-        style={{
-          display: 'flex',
-          gap: '1rem',
-          maxHeight: '48px',
-          alignItems: 'center',
-        }}>
+      <div className={styles.toast}>
         <Image
           src='/reduxLogo.png'
           alt='react-redux-logo'
-          width={40}
-          height={40}
+          width={20}
+          height={20}
         />
-        <div
-          style={{
-            whiteSpace: 'nowrap',
-          }}>
-          {message}
-        </div>
+        <div>{message}</div>
       </div>
     ),
     {

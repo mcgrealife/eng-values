@@ -1,0 +1,10 @@
+.toast {
+  display: flex;
+  gap: 4px;
+  max-height: 48px;
+  align-items: center;
+}
+
+.toast div {
+  white-space: nowrap;
+}
