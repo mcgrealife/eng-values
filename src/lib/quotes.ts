@@ -1,4 +1,7 @@
-export type Quote = (typeof baseQuotes)[number] & { quoteb64: string } // imgix prefers base64, so we convert on server
+export type Quote = (typeof baseQuotes)[number] & {
+  quoteb64: string // imgix prefers base64, so we convert on server
+  translatedQuote?: string // fallback if ImgIx typesetting fails
+}
 
 export const baseQuotes = [
   {

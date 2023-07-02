@@ -38,6 +38,7 @@ export default async function handler(req: NextRequest) {
       id: idx + 1,
       quote: baseQuotes[idx].quote, //english quote
       quoteb64, // translated as base64 for imgi x
+      translatedQuote: t.translatedText,
       title: baseQuotes[idx].title,
     }
   })
