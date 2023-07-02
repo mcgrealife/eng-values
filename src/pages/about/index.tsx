@@ -7,7 +7,7 @@ import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 import { useModal } from '@/hooks/useModal'
 
 const Mapbox = dynamic(() => import('@/components/Mapbox/Mapbox'), {
-  loading: () => mapboxFallbackJSX, // defer import until inView
+  loading: () => <div className={styles.loading} />,
 })
 
 export default function About() {
@@ -119,13 +119,3 @@ export default function About() {
     </div>
   )
 }
-
-const mapboxFallbackJSX = (
-  <div className={styles.mapboxFallback}>
-    <h1>
-      Suspense fallback
-      <br />
-      Lazy importing Mapbox bundle
-    </h1>
-  </div>
-)
