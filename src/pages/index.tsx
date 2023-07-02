@@ -58,8 +58,8 @@ export default function Home(
         <div ref={languageSelector} className={styles.langSelect}>
           <LanguageSelect />
         </div>
-        {quotes.map((q, idx) => (
-          <QuoteCard key={idx} quote={q} />
+        {quotes.map((q) => (
+          <QuoteCard key={q.id.toString() + q.quoteb64.slice(0, 5)} quote={q} />
         ))}
         <ScrollToTopButton />
       </div>
