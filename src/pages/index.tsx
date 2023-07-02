@@ -54,6 +54,8 @@ export default function Home(
           }}
         />
       </Modal>
+      <div className={styles.scrollable}>
+        <div ref={languageSelector} className={styles.langSelect}>
           <LanguageSelect />
         </div>
         {quotes.map((q, idx) => (
