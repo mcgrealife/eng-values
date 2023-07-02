@@ -24,10 +24,11 @@ export default function Home(
   const { Modal, actions } = useModal({ open: !seenIntroTextAnimation })
   const scrollable = useRef<HTMLDivElement>(null)
 
-  const languageSelectorRef = useRef<HTMLDivElement>(null)
-  const scrollToTopButtonRef = useRef<HTMLDivElement>(null)
-  const { inView, observeEl } = useIntersectionObserver({
-    callback: () =>
+  // intersection observers 2
+  const languageSelector = useRef<HTMLDivElement>(null)
+  useIntersectionObserver2({
+    ref: languageSelector,
+    onIntersect: (inView: boolean) =>
       dispatch(
         setLanguage({
           showInHeader: !inView,
@@ -39,10 +40,6 @@ export default function Home(
     if (!seenIntroTextAnimation) actions.openModal()
   }, [seenIntroTextAnimation, actions])
   // observeButton(scrollToTopButtonRef.current)
-
-  useEffect(() => {
-    observeEl(languageSelectorRef.current)
-  }, [observeEl])
 
   return (
     <main className={styles.main}>

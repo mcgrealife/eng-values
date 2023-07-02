@@ -1,6 +1,6 @@
 import styles from './QuoteCard.module.css'
 import Image from 'next/image'
-import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
+import { useIntersectionObserver2 } from '@/hooks/useIntersectionObserver2'
 import { Quote } from '@/lib/quotes'
 import { useEffect, useRef } from 'react'
 import useMediaQuery from '@/hooks/useMediaQuery'
@@ -8,15 +8,15 @@ import useMediaQuery from '@/hooks/useMediaQuery'
 export default function QuoteCard({ quote }: { quote: Quote }) {
   const isMobile = useMediaQuery('(max-width: 768px)')
   const isSmallHeight = useMediaQuery('(max-height: 667px)')
-  const { inView, observeEl } = useIntersectionObserver({
-    rootMargin:
-      isMobile && isSmallHeight ? '-150px' : isMobile ? '-200px' : '-250px',
-  })
   const ref = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    observeEl(ref.current)
-  }, [observeEl])
+  const inView = useIntersectionObserver2({
+    ref,
+    options: {
+      rootMargin:
+        isMobile && isSmallHeight ? '-150px' : isMobile ? '-200px' : '-250px',
+    },
+  })
 
   return (
     <div

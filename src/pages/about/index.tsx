@@ -1,21 +1,20 @@
-import { Suspense, useEffect, useRef } from 'react'
+import { Suspense, useRef } from 'react'
 import Image from 'next/image'
 import styles from './About.module.css'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
-import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
+import { useIntersectionObserver2 } from '@/hooks/useIntersectionObserver2'
 
 const Mapbox = dynamic(() => import('@/components/Mapbox/Mapbox'), {
   loading: () => <div className={styles.loading} />,
 })
 
 export default function About() {
-  const { inView, observeEl } = useIntersectionObserver({ once: true }) // for mapbox lazy import
-  const mapEl = useRef<HTMLDivElement>(null)
-  useEffect(() => {
-    // lazy import Mapbox; when scrolled into view
-    observeEl(mapEl.current)
-  }, [observeEl])
+  const mapEl = useRef<HTMLDivElement>(null) // defer mapbox import until inView
+  const inView = useIntersectionObserver2({
+    ref: mapEl,
+    options: { once: true },
+  })
 
   return (
     <div className={styles.container}>
