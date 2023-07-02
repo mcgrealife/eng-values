@@ -11,7 +11,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import { selectSettings, setLanguage, setSettings } from '@/lib/redux/store'
 import LanguageSelect from '@/components/LanguageSelect/LanguageSelect'
 import { baseQuotes } from '@/lib/quotes'
-import useMediaQuery from '@/hooks/useMediaQuery'
 import QuoteCard from '@/components/QuoteCard/QuoteCard'
 
 export default function Home(
@@ -19,10 +18,16 @@ export default function Home(
 ) {
   const quotes = useTranslatedQuotes(props.quotes)
   const dispatch = useDispatch()
-  const isMobile = useMediaQuery('(max-width: 768px)')
   const { seenIntroTextAnimation } = useSelector(selectSettings)
-  const { Modal, actions } = useModal({ open: !seenIntroTextAnimation })
-  const scrollable = useRef<HTMLDivElement>(null)
+  const { Modal, actions } = useModal({
+    isOpen: !seenIntroTextAnimation,
+    closeModal: () =>
+      dispatch(
+        setSettings({
+          seenIntroTextAnimation: true,
+        })
+      ),
+  })
 
   // intersection observers 2
   const languageSelector = useRef<HTMLDivElement>(null)
@@ -36,45 +41,20 @@ export default function Home(
       ),
   })
 
-  useEffect(() => {
-    if (!seenIntroTextAnimation) actions.openModal()
-  }, [seenIntroTextAnimation, actions])
   // observeButton(scrollToTopButtonRef.current)
 
   return (
     <main className={styles.main}>
       <Head>{openGraphAndMeta('home')}</Head>
-      {!seenIntroTextAnimation && (
-        <div className={styles.introQuote}>
-          <Modal
-            overlayStyle={{
-              backgroundColor: 'rgba(0,0,0,0.5)',
-              width: '100%',
-              height: '100%',
-            }}
-            contentStyle={{
-              // display: 'grid',
-              // placeContent: 'center',
-              // width: '100%',
-              // maxWidth: isMobile ? '100%' : '80%',
-              height: '100%',
-              padding: isMobile ? '2rem' : '6rem',
-            }}>
-            <IntroTextAnimation
-              onEndAnimation={() => {
-                dispatch(
-                  setSettings({
-                    seenIntroTextAnimation: true,
-                  })
-                )
-                actions.closeModal()
-              }}
-            />
-          </Modal>
-        </div>
-      )}
-      <div ref={scrollable} className={styles.scrollable}>
-        <div ref={languageSelectorRef} className={styles.langSelect}>
+      <Modal
+        overlayClassName={styles.introTextModalOverlay}
+        className={styles.introTextModalContent}>
+        <IntroTextAnimation
+          onEndAnimation={() => {
+            actions.closeModal()
+          }}
+        />
+      </Modal>
           <LanguageSelect />
         </div>
         {quotes.map((q, idx) => (

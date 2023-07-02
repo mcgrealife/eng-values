@@ -27,20 +27,8 @@ export default function Header() {
         <button onClick={() => actions.openModal()}>menu</button>
       </div>
       <Modal
-        overlayStyle={{
-          display: 'flex',
-          justifyContent: 'end',
-          alignContent: 'start',
-          minWidth: '100%',
-          minHeight: '100%',
-        }}
-        contentStyle={{
-          flexDirection: 'column',
-          width: 'fit-content',
-          height: 'fit-content',
-          marginTop: '3rem',
-          marginRight: '2rem',
-        }}>
+        overlayClassName={styles.modalOverlay}
+        className={styles.modalContent}>
         {[
           { href: '/', label: '⚓️ Home' },
           { href: '/about', label: '📖 About' },

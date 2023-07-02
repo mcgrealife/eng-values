@@ -1,45 +1,38 @@
 import ReactModal from 'react-modal'
-import { ReactNode, useState } from 'react'
+import { useState } from 'react'
 
-type ReactModalProps = {
-  children: ReactNode
-  contentStyle?: ReactModal.Styles['content']
-  overlayStyle?: ReactModal.Styles['overlay']
-  style?: ReactModal.Styles
-  label?: ReactModal.Props['contentLabel']
-}
-
-export const useModal = () => {
-  const [isOpen, setIsOpen] = useState(false)
-
+export const useModal = ({
+  isOpen: isOpenOverride,
+  openModal,
+  closeModal,
+  props,
+}: {
+  isOpen?: ReactModal['props']['isOpen']
+  openModal?: () => void
+  closeModal?: () => void
+  props?: ReactModal['props']
+}) => {
   ReactModal.setAppElement('#app')
-
+  const [isOpen, setIsOpen] = useState(false)
   const actions = {
-    openModal: () => setIsOpen(true),
-    closeModal: () => setIsOpen(false),
-    afterOpenModal: () => console.log('afteropenModal'),
+    openModal: openModal ?? (() => setIsOpen(true)),
+    closeModal: closeModal ?? (() => setIsOpen(false)),
   }
 
-  const Modal = ({ ...args }: ReactModalProps) => {
-    if (!isOpen) return null
+  const Modal = ({ ...args }: Partial<ReactModal['props']>) => {
+    const open = isOpenOverride ?? isOpen
+    if (!open) return null
     return (
       <ReactModal
-        isOpen={isOpen}
+        {...props}
+        overlayClassName={args.overlayClassName}
+        className={args.className}
+        isOpen={open}
         shouldCloseOnEsc={true}
         shouldCloseOnOverlayClick={true}
-        onAfterOpen={actions.afterOpenModal}
         onRequestClose={actions.closeModal}
-        style={{
-          content: {
-            position: 'unset',
-            inset: 0,
-            display: 'flex',
-            ...args.contentStyle,
-          },
-          overlay: args.overlayStyle,
-        }}
         shouldReturnFocusAfterClose={true}
-        contentLabel='Example Modal'>
+        contentLabel='Modal'>
         {args.children}
       </ReactModal>
     )
@@ -50,3 +43,6 @@ export const useModal = () => {
     Modal,
   }
 }
+// maintainer recommends against conditional rendering
+// instead: modals always mounted, show/hide with isOpen prop
+// https://github.com/reactjs/react-modal/issues/808#issuecomment-1155423058

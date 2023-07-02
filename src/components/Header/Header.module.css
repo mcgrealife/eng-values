@@ -57,3 +57,19 @@
   border: 1px solid #e6edef;
   background-color: #fafcfc;
 }
+
+.modalOvelay {
+  display: flex;
+  position: unset;
+  justify-content: flex-end;
+  align-content: flex-start;
+  min-width: 100%;
+  min-height: 100%;
+}
+.modalContent {
+  flex-direction: column;
+  width: fit-content;
+  height: fit-content;
+  margin-top: 3rem;
+  margin-right: 2rem;
+}
