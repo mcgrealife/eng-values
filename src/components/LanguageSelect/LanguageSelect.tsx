@@ -1,16 +1,11 @@
-import { useState } from 'react'
 import styles from './LanguageSelect.module.css'
-import {
-  ISO639,
-  getFlagCode,
-  langCodes,
-} from '@/pages/api/v1/translate/[langCode]'
+import { getFlagCode, langCodes } from '@/pages/api/v1/translate/[langCode]'
 import Image from 'next/image'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectLanguage, setLanguage } from '@/lib/redux/store'
+import { reduxToast } from '../Toast/ReduxToast'
 
 export default function LanguageSelect() {
-  // redux action
   const language = useSelector(selectLanguage)
   const dispatch = useDispatch()
 
@@ -32,8 +27,9 @@ export default function LanguageSelect() {
             const langObj = langCodes.find(
               (lc) => lc.langCode == e.target.value
             )
-            // langObj && setLanguage(langObj)
-            langObj && dispatch(setLanguage(langObj))
+            if (!langObj) return
+            dispatch(setLanguage(langObj))
+            reduxToast(`Dispatch => setLanguageCode( ${langObj.langCode} )`)
           }}
           style={{
             width: `${language.name.length + 1}ch`,
