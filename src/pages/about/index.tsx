@@ -4,7 +4,6 @@ import styles from './About.module.css'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
-import { useModal } from '@/hooks/useModal'
 
 const Mapbox = dynamic(() => import('@/components/Mapbox/Mapbox'), {
   loading: () => <div className={styles.loading} />,
@@ -17,7 +16,6 @@ export default function About() {
     // lazy import Mapbox; when scrolled into view
     observeEl(mapEl.current)
   }, [observeEl])
-  const { Modal, actions } = useModal()
 
   return (
     <div className={styles.container}>
