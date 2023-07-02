@@ -1,37 +1,27 @@
-// used to lazy import mapbox bundle, until user scrolls into view
-
 import { useEffect, useRef, useState } from 'react'
 
-export const useIntersectionObserver = () => {
+export const useIntersectionObserver = (
+  options?: IntersectionObserverInit & { once?: boolean }
+) => {
   const [inView, setInView] = useState(false)
-  const [hasBeenInView, setHasBeenInView] = useState(false)
   const observerRef = useRef<IntersectionObserver | null>(null)
 
   useEffect(() => {
-    const observerOptions: IntersectionObserverInit = {
-      root: null, // viewport
-      rootMargin: '0px',
-      threshold: 0.5, // percentage of the element visible
-    }
-
-    const handleIntersection: IntersectionObserverCallback = (entries) => {
+    observerRef.current = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        setInView(entry.isIntersecting)
-        if (!hasBeenInView && entry.isIntersecting) {
-          setHasBeenInView(true)
+        entry.isIntersecting ? setInView(true) : setInView(false)
+
+        // if 'once' disconnect the observer early, before cleanup
+        if (options?.once && entry.isIntersecting && observerRef.current) {
+          observerRef.current.disconnect()
         }
       })
-    }
-
-    observerRef.current = new IntersectionObserver(
-      handleIntersection,
-      observerOptions
-    )
+    }, options)
 
     return () => {
       if (observerRef.current) observerRef.current.disconnect()
     }
-  }, [hasBeenInView])
+  }, [options])
 
   const observeEl = (el: HTMLElement | null): void => {
     if (observerRef.current && el) {
@@ -39,5 +29,5 @@ export const useIntersectionObserver = () => {
     }
   }
 
-  return { inView, hasBeenInView, observeEl }
+  return { inView, observeEl }
 }
