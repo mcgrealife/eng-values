@@ -27,7 +27,7 @@ export default function LanguageSelect() {
         />
         <select
           id='quote-languages'
-          defaultValue={language.langCode}
+          value={language.langCode}
           onChange={(e) => {
             const langObj = langCodes.find(
               (lc) => lc.langCode == e.target.value
