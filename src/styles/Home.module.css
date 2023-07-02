@@ -76,6 +76,9 @@
   width: 100vw;
   padding: 6rem;
 }
+.introTextModalContent:focus {
+  outline: 0;
+}
 
 @media screen and (max-width: 768px) {
   .introTextModalContent {
