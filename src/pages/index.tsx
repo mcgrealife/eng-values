@@ -26,7 +26,14 @@ export default function Home(
 
   const languageSelectorRef = useRef<HTMLDivElement>(null)
   const scrollToTopButtonRef = useRef<HTMLDivElement>(null)
-  const { inView, observeEl } = useIntersectionObserver()
+  const { inView, observeEl } = useIntersectionObserver({
+    callback: () =>
+      dispatch(
+        setLanguage({
+          showInHeader: !inView,
+        })
+      ),
+  })
 
   useEffect(() => {
     if (!seenIntroTextAnimation) actions.openModal()
@@ -36,14 +43,6 @@ export default function Home(
   useEffect(() => {
     observeEl(languageSelectorRef.current)
   }, [observeEl])
-
-  useEffect(() => {
-    dispatch(
-      setLanguage({
-        showInHeader: !inView,
-      })
-    )
-  }, [inView, dispatch])
 
   return (
     <main className={styles.main}>
