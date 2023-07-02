@@ -12,6 +12,7 @@ import { selectSettings, setLanguage, setSettings } from '@/lib/redux/store'
 import LanguageSelect from '@/components/LanguageSelect/LanguageSelect'
 import { baseQuotes } from '@/lib/quotes'
 import QuoteCard from '@/components/QuoteCard/QuoteCard'
+import ScrollToTopButton from '@/components/buttons/ScrollToTopButton'
 
 export default function Home(
   props: InferGetStaticPropsType<typeof getStaticProps>
@@ -41,8 +42,6 @@ export default function Home(
       ),
   })
 
-  // observeButton(scrollToTopButtonRef.current)
-
   return (
     <main className={styles.main}>
       <Head>{openGraphAndMeta('home')}</Head>
@@ -60,13 +59,7 @@ export default function Home(
         {quotes.map((q, idx) => (
           <QuoteCard key={idx} quote={q} />
         ))}
-        <button
-          onClick={() =>
-            scrollable.current?.scrollTo({ top: 0, behavior: 'smooth' })
-          }
-          className={`${styles.scrollTo} ${false ? styles.fade : ''}`}>
-          Back to top ↑
-        </button>
+        <ScrollToTopButton />
       </div>
       <div className={`${styles.overlay} ${styles.top}`} />
       <div className={`${styles.overlay} ${styles.bottom}`} />
