@@ -1,8 +1,8 @@
 import styles from './QuoteCard.module.css'
 import Image from 'next/image'
-import { useIntersectionObserver2 } from '@/hooks/useIntersectionObserver2'
+import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 import { Quote } from '@/lib/quotes'
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import useMediaQuery from '@/hooks/useMediaQuery'
 
 export default function QuoteCard({ quote }: { quote: Quote }) {
@@ -11,13 +11,14 @@ export default function QuoteCard({ quote }: { quote: Quote }) {
   const ref = useRef<HTMLDivElement>(null)
   const [imgixError, setImgixError] = useState(false) // ImgIX Typesetting API errors on some langs // fallback to text
 
-  const inView = useIntersectionObserver2({
-    ref,
-    options: {
-      rootMargin:
-        isMobile && isSmallHeight ? '-150px' : isMobile ? '-200px' : '-250px',
-    },
+  const { inView, observeEl } = useIntersectionObserver({
+    rootMargin:
+      isMobile && isSmallHeight ? '-150px' : isMobile ? '-200px' : '-250px',
   })
+
+  useEffect(() => {
+    observeEl(ref.current)
+  }, [observeEl])
 
   return (
     <div
