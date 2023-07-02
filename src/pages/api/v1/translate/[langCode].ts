@@ -30,14 +30,14 @@ export default async function handler(req: NextRequest) {
   // map responses back to Ids
   // append translated base64 for imgix
   // use TextEncoder to encode non-english chars (btoa isn't reliable for non-english chars)
-  const enconder = new TextEncoder()
+  const encoder = new TextEncoder()
   const translationsWithIds = translations.data.translations.map((t, idx) => {
-    const data = enconder.encode(t.translatedText)
+    const data = encoder.encode(t.translatedText)
     const quoteb64 = Buffer.from(data).toString('base64')
     return {
-      id: idx,
+      id: idx + 1,
       quote: baseQuotes[idx].quote, //english quote
-      quoteb64, // translated as base64 for imgix
+      quoteb64, // translated as base64 for imgi x
       title: baseQuotes[idx].title,
     }
   })
