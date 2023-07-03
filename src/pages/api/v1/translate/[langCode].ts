@@ -46,7 +46,7 @@ export default async function handler(req: NextRequest) {
   return new Response(JSON.stringify(translationsWithIds), {
     headers: {
       'content-type': 'application/json',
-      'Cache-Control': 's-maxage=3600', // starting small, 1hr // can cache bust via deploy if needed
+      'Cache-Control': 's-maxage=864000', // can cache bust via deploy if needed
     },
     status: 200,
   })
