@@ -11,7 +11,7 @@ export default function Header() {
   const { Modal, actions } = useModal({})
   const isMobile = useMediaQuery('(max-width: 768px)')
   const { showInHeader } = useSelector(selectLanguage)
-  const router = useRouter()
+  const { pathname } = useRouter()
 
   return (
     <header className={styles.container}>
@@ -23,7 +23,7 @@ export default function Header() {
         </Link>
       </div>
       <div className={styles.languageSelect}>
-        {showInHeader && router.pathname == '/' && <LanguageSelect />}
+        {showInHeader && pathname == '/' && <LanguageSelect />}
       </div>
       <div className={styles.right}>
         <button onClick={() => actions.openModal()}>menu</button>
