@@ -32,9 +32,9 @@ export default function Header() {
         overlayClassName={styles.modalOverlay}
         className={styles.modalContent}>
         {[
-          { href: '/', label: '⚓️ Home' },
+          { href: '/', label: '⚓️ Quotes' },
           { href: '/about', label: '📖 About' },
-          { href: '/settings', label: '⚙️ Settings' },
+          // { href: '/settings', label: '⚙️ Settings' },
         ].map((l) => (
           <Link key={l.href} href={l.href} onClick={() => actions.closeModal()}>
             {l.label}

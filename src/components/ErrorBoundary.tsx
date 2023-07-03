@@ -22,7 +22,13 @@ class ErrorBoundary extends React.Component<Props, { hasError: boolean }> {
     if (this.state.hasError) {
       // You can render any custom fallback UI
       return (
-        <div>
+        <div
+          style={{
+            display: 'grid',
+            placeContent: 'center',
+            placeItems: 'center',
+            height: '100%',
+          }}>
           <h2>Ahoy, turbulent waters!</h2>
           <blockquote>
             {`"We cannot direct the wind, but we can adjust the sails."`}
