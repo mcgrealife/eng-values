@@ -37,13 +37,15 @@
   display: flex;
   justify-content: flex-start;
   gap: 1rem;
-  max-width: 100%;
+  max-width: 1000px;
   overflow-x: scroll;
   padding-left: 1rem;
 }
+
 @media screen and (min-width: 768px) {
   .carousel {
     justify-content: space-evenly;
+    place-self: center;
   }
 }
 .carousel:first-child {
@@ -218,11 +220,12 @@
 .heading {
   margin: 0;
   min-width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .heading button {
   height: fit-content;
-  place-self: start;
   margin-bottom: 1rem;
   display: flex;
   align-items: center;

@@ -18,9 +18,9 @@ export default function About() {
 
   return (
     <div className={styles.container}>
-      <section className={styles.fullWidth}>
+      <section className={`${styles.fullWidth} ${styles.center}`}>
         <div className={styles.heading}>
-          <div className={styles.flexCol}>
+          <div className={`${styles.flexCol}`}>
             <h1>Technology used</h1>
             <button>
               <Image
@@ -126,7 +126,7 @@ const tech = [
   {
     name: '🪝 React hooks',
     takeaway: (
-      <div>{`All hooks: hide the complexity of managing refs, state, and useEffects; allow overriding defaults via an options arg. The useModal hook is especially exciting because it mixes both hooks and HOC patterns – returning an actions object and a component that accepts children! This allows flexible cases where actions defined in the caller can be passed to arbitrary modal content (see IntroTextAnimation.tsx)!`}</div>
+      <div>{`All hooks hide the complexity of managing refs, state, and useEffects; with an options arg to override defaults.`}</div>
     ),
     logoUrl: null,
   },
@@ -173,7 +173,7 @@ const tech = [
   {
     name: '🛋️ React lazy (dynamic imports)',
     takeaway: (
-      <div>{`As an example, I defer importing the mapbox bundle on the /about page until it's container is scrolled into view (using the useIntersectionObserverHook())`}</div>
+      <div>{`As an example, I defer importing the mapbox bundle below until it is scrolled into view (using the useIntersectionObserverHook())`}</div>
     ),
     logoUrl: '',
   },
@@ -208,7 +208,7 @@ const tech = [
   {
     name: '📸 vercel/og',
     takeaway: (
-      <div>{`I had a little fun and modified GetMyBoats OG image, adding the sharing user's country text (inferred from IP address on the request header) to the image.`}</div>
+      <div>{`I had some fun by modifying GetMyBoats OG image, adding the sharing user's country text (inferred from IP address on the request header) to the image.`}</div>
     ),
     logoUrl: '',
   },
