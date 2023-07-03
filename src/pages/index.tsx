@@ -46,7 +46,10 @@ export default function Home(
   })
 
   return (
-    <main className={styles.main}>
+    <main
+      className={`${styles.main} ${
+        seenIntroTextAnimation ? styles.fadeIn : ''
+      }`}>
       <Head>{openGraphAndMeta('home')}</Head>
       <Modal
         overlayClassName={styles.introTextModalOverlay}
