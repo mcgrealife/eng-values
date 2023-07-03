@@ -1,18 +1,16 @@
 # Highlights
 
-- **Redux** slices pattern
-- dynamic `api/translate/[language]` **caches** Google Translate responses for each language
-- Mapbox bundle **dynamically imported** on intersection observer; with **Suspense** fallback
-- useModal hook returns a **react-modal** with actions object, and accepts
-  children
-- **ImgIx** typesetting API!
-- Custom **hooks** in `@/lib/hooks`
-- Text animations
-- **Toastify**!
-- [404](https://gmb-eng-values.vercel.app/404) joy page
-- CSS modules
-- Error boundary
-- ISO country/flag code map
-- TextEncoder for imgix base64
-- Language selector emulates CurrencySelector CSS
-- OpenGraph image displays country text from IP "Ahoy {country}!"
+## Demo: [https://gmb-eng-values.vercel.app](https://gmb-eng-values.vercel.app/)
+
+### I am particuarly proud of the hooks patterns `useModal()` and `useIntersectionObserver()`
+
+- **_hide complexity_** of refs, state, and effects inside the hook
+- allow _overriding defaults_ via an _options_ arg
+
+> The `useModal()` hook is especially exciting, because it returns both an **actions object** and a **component that accepts children**.
+
+**This allows flexible cases where actions defined in the caller can be passed to arbitary modal content**.
+
+See the implementation of the `<IntroTextAnimation />` in `/src/index` as an example.
+
+![othertech-used](/public/tech-used.png)
